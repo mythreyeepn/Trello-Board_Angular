@@ -1,0 +1,46 @@
+<div style="background-color: #eceeee">
+
+
+    <div class="board">
+
+        <div class="board-bar">
+            <p class="board-name">{{ board.name }}</p>
+        </div>
+
+        <div class="board-wrapper">
+
+            <div class="board-columns" cdkDropListGroup>
+                <div class="board-column" *ngFor="let column of board.columns;let in=index">
+
+                    <div class="column-title" style="text-align: center;color:white" [ngClass]="column.name">
+                        {{ column.name }}
+                    </div>
+
+                    <div class="tasks-container" cdkDropList [cdkDropListData]="column.tasks"
+                        (cdkDropListDropped)="drop($event)">
+                        <div class="row" class="task" *ngFor="let item of column.tasks;let j=index" cdkDrag>
+                            <div class="col-sm-1"  *ngIf='!in==0' style="align-items: left;position: relative;cursor: pointer">
+                                <mat-icon  (click)="arrowClick(in-1,in,item,j)">chevron_left</mat-icon>
+                            </div>
+                            <div class="col-sm">
+                                {{ item }}
+                            </div>
+                            <div  class="col-sm-1 text-right"  *ngIf='in!=3'>
+                                <mat-icon style="cursor: pointer" (click)="arrowClick(in+1,in,item,j)">chevron_right</mat-icon>
+                            </div>
+                        </div>
+                        <div>
+                            <button (click)="addNote(column.name)">+ Add a card</button>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
